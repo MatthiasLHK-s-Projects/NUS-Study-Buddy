@@ -6,6 +6,8 @@ import HomeScreen from './HomeScreen.js';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import GradeCalculator from './GradeCalculator.js';
+import Modules from './modules/ModuleScreen.js'
+import Filler1 from './FillerPage_1.js';
 
 export default function App() {
 
@@ -26,6 +28,24 @@ export default function App() {
                 <Stack.Screen name="GradeCal" component={GradeCalculator} options={
                     {
                         title: 'GradeCalculator',
+                        headerStyle: {
+                            backgroundColor: 'white',
+                        },
+                    }
+                }/>
+
+                <Stack.Screen name="Modules" component={Modules} options={
+                    {
+                        title: 'Modules',
+                        headerStyle: {
+                            backgroundColor: 'white',
+                        },
+                    }
+                }/>
+
+                <Stack.Screen name="Filler1" component={Filler1} options={
+                    {
+                        title: 'Filler1',
                         headerStyle: {
                             backgroundColor: 'white',
                         },

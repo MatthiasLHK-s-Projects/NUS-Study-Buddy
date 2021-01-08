@@ -35,10 +35,10 @@ export default function HomeScreen({navigation}) {
                 <Text style={styles.clock}> {time} </Text>
             </View>
             <View style={styles.calculatorView}>
-            <TouchableOpacity style={styles.calculator} onPress={()=> navigation.navigate('GradeCal')}>
+            <TouchableOpacity style={styles.calculator} onPress={()=> navigation.navigate('Filler1')}>
                 <Image source={cal} style={styles.cal} />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.grade} onPress={()=> alert("grades pressed!")}>
+            <TouchableOpacity style={styles.grade} onPress={()=> navigation.navigate('Modules')}>
                 <Image source={gr} style={styles.gr} />
             </TouchableOpacity>
             </View>

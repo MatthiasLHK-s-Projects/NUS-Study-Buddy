@@ -1,68 +1,107 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, FlatList, KeyboardAvoidingView } from 'react-native';
 import { useState, useEffect } from 'react';
 
-export default function GradeCalculator() {
+export default function GradeCalculator({route, navigation}) {
     const [cap, setCap] = useState(0);
-    function calculate(...mods) {
+
+    function calculate(mods, mc) {
         const count = mods.length;
         var res = 0;
+        var mcs = 0;
         for (var i=0; i<count; i++) {
-            res = res + parseFloat(mods[i]);
+            res = res + (parseFloat(mods[i]) * parseFloat(mc[i]));
+            mcs = mcs + parseFloat(mc[i]);
         }
-        res = res / count;
+        res = res / mcs;
         setCap(res);
     }
-
 
     if (cap > 5) {
         setCap("Invalid");
     }
 
+    const key = route.params.value;
 
-    const [value1, onChangeText1] = useState(null);
-    const [value2, onChangeText2] = useState(null);
-    const [value3, onChangeText3] = useState(null);
-    const [value4, onChangeText4] = useState(null);
-    const [value5, onChangeText5] = useState(null);
+    var DATA = [];
+
+    for(var i=1; i<=key; i++) {
+        DATA.push(i);
+    }
+
+    var state = {
+        textInputs: [],
+    };
+
+    var mc = {
+        MCs: [],
+    }
 
     return (
         <View style={styles.MainContainer}>
+
             <View style={styles.ResultWindow}>
                 <Text style={styles.Result}>     {cap}    </Text>
             </View>
 
-            <TextInput style={styles.textInput}
-                       placeholder='  Module 1 grade'
-                       onChangeText={text => onChangeText1(text)}
-                       value={value1}
-            />
-            <TextInput style={styles.textInput}
-                       placeholder='  Module 2 grade'
-                       onChangeText={text => onChangeText2(text)}
-                       value={value2}
-            />
-            <TextInput style={styles.textInput}
-                       placeholder='  Module 3 grade'
-                       onChangeText={text => onChangeText3(text)}
-                       value={value3}
-            />
-            <TextInput style={styles.textInput}
-                       placeholder='  Module 4 grade'
-                       onChangeText={text => onChangeText4(text)}
-                       value={value4}
-            />
-            <TextInput style={styles.textInput}
-                       placeholder='  Module 5 grade'
-                       onChangeText={text => onChangeText5(text)}
-                       value={value5}
-            />
-            <TouchableOpacity style={styles.calculate} onPress={()=> calculate(value1, value2, value3, value4, value5)}>
-                <Text> calculate </Text>
-            </TouchableOpacity>
+            <View style={styles.flatList}>
+            <FlatList
+                ListHeaderComponent={() =>
+                    <Text style={{padding: 8, marginBottom: 10}}>Grades</Text>
+                }
+                contentContainerStyle={{alignItems: 'center'}}
+                data={DATA}
+                renderItem={({ item, index }) => {
+                    return(
+                        <TextInput
+                              style={styles.textInput}
+                              onChangeText={text => {
+                                let { textInputs } = state;
+                                textInputs[index] = text;
+                                state = {textInputs};
+                              }}
+                              value={state.textInputs[index]}
+                        />
+                    )
+                }}
+                keyExtractor={item=>item.id} />
+
+                <FlatList
+                    ListHeaderComponent={() =>
+                        <Text style={{padding: 8, marginBottom: 10}}>MCs</Text>
+                    }
+                    contentContainerStyle={{alignItems: 'center'}}
+                    data={DATA}
+                    renderItem={({ item, index }) => {
+                        return(
+                            <TextInput
+                                  style={styles.textInput}
+                                  onChangeText={text => {
+                                    let { MCs } = mc;
+                                    MCs[index] = text;
+                                    mc = {MCs};
+                                  }}
+                                  value={mc.MCs[index]}
+                            />
+                        )
+                    }}
+                    keyExtractor={item=>item.id} />
+
+
+            </View>
+
+            <View style={styles.button}>
+                <TouchableOpacity onPress={()=> calculate(state.textInputs, mc.MCs)}>
+                    <Text style={styles.Cal}> Calculate </Text>
+                </TouchableOpacity>
+            </View>
+
         </View>
     );
 }
+
+
+
 
 const styles = StyleSheet.create({
     MainContainer: {
@@ -71,32 +110,40 @@ const styles = StyleSheet.create({
         backgroundColor: 'lightskyblue',
     },
     ResultWindow: {
+        flex: 1,
+        justifyContent: 'center'
+    },
+    Result: {
         padding: 30,
-        alignItems: 'center',
-        justifyContent: 'center',
+        fontSize: 30,
+        color: 'white',
         backgroundColor: 'royalblue',
         borderRadius: 20,
         borderColor: 'white',
         borderWidth: 2,
-        top: 100
     },
-    Result: {
-        fontSize: 30,
-        color: 'white',
+    flatList: {
+        flex: 1.9,
+        flexDirection: 'row',
     },
     textInput: {
         height: 40,
-        width: 200,
+        width: 100,
         borderColor: 'gray',
         borderWidth: 1,
         backgroundColor: 'white',
-        top: 120,
-        marginBottom: 10
+        marginBottom: 10,
+        borderRadius: 20
     },
-    calculate: {
-        padding: 30,
+    Cal: {
         backgroundColor: 'pink',
         borderRadius: 20,
-        top: 150
+        borderWidth: 2,
+        borderColor: 'grey',
+        padding: 30
+    },
+    button: {
+        flex: 1,
+        justifyContent: 'center'
     }
 })
