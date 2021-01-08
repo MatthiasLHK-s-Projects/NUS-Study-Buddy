@@ -1,11 +1,17 @@
-import React from 'react';
-import { StyleSheet, View , FlatList, Text} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View , FlatList, Text, Image } from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
+import kitten from '../assets/cutekitten1.png';
+
 
 export default function ModuleScreen() {
     return (
         <View style={styles.container}>
           <View>
-            <CapDisplay cap = {4.5}/>
+            <Image
+             source = {kitten}
+             style = {styles.image}
+            />
           </View>
             <View style={[{transform: [{ translateY: 75 }]}]}>
                 <FlatListBasics/>
@@ -28,7 +34,7 @@ const styles = StyleSheet.create({
     },
     module: {
         padding: 10,
-        fontSize: 26,
+        fontSize: 32,
         height: 56,
         backgroundColor: "#fc5c65",
         flexDirection: 'row' 
@@ -43,15 +49,19 @@ const styles = StyleSheet.create({
    },
    cap: {
      fontSize: 88
+   },
+   image: {
+     width: 200,
+     height: 220
    }
 });
 
-const FlatListBasics = () => {
+const FlatListBasics = (props) => {
     return (
       <View style={styles.flatList}>
         <FlatList
           data={[
-            {name: 'Module 1', cap: '4.5'},
+            {name: 'Module 1', cap: '2'},
             {name: 'Module 2', cap: '4.5'},
             {name: 'Module 3', cap: '4.5'},
             {name: 'Module 4', cap: '4.5'},
@@ -66,17 +76,10 @@ const FlatListBasics = () => {
 const Module = (props) => {
   return (
     <View style = {styles.module}>
-      <Text>{props.name}</Text>
-      <Text style={[{transform: [{ translateX: 288 }]}]}>{props.cap}</Text>
-    </View>
-  )
-}
-
-const CapDisplay = (props) => {
-  return (
-    <View style = {styles.circle} >
-      <Text>Your CAP is</Text>
-      <Text style = {styles.cap}>{props.cap}</Text>
+      <TextInput>{props.name}</TextInput>
+      <TextInput 
+      style={[{transform: [{ translateX: 288 }]}]} 
+      keyboardType = 'numeric' >{props.cap}</TextInput>
     </View>
   )
 }
