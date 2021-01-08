@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import { useState, useEffect } from 'react';
 import Moment from 'moment';
-
+import cal from './assets/baseline_calculate_white_18dp.png';
+import gr from './assets/baseline_book_white_18dp.png';
 
 
 
@@ -33,6 +34,14 @@ export default function HomeScreen() {
                 <Text style={styles.date}> {getDate} </Text>
                 <Text style={styles.clock}> {time} </Text>
             </View>
+            <View style={styles.calculatorView}>
+            <TouchableOpacity style={styles.calculator} onPress={()=> alert("calculator pressed!")}>
+                <Image source={cal} style={styles.cal} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.grade} onPress={()=> alert("grades pressed!")}>
+                <Image source={gr} style={styles.gr} />
+            </TouchableOpacity>
+            </View>
         </View>
     );
 }
@@ -61,5 +70,30 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    calculator: {
+        height: 80,
+        width: 80,
+        backgroundColor: 'darkblue',
+        borderRadius: 20,
+        marginRight: 70
+    },
+    cal: {
+        height: 80,
+        width: 80
+    },
+    grade: {
+        height: 80,
+        width: 80,
+        backgroundColor: 'darkblue',
+        borderRadius: 20
+    },
+    gr: {
+        height: 80,
+        width: 80
+    },
+    calculatorView: {
+        flexDirection: 'row',
+        top: 180,
     }
 })
