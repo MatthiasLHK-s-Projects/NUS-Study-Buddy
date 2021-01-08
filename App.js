@@ -17,6 +17,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'stretch',
         justifyContent: 'center',
-        backgroundColor: 'black'
+        backgroundColor: 'cornflowerblue'
     }
 })
