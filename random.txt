@@ -1,0 +1,136 @@
+const DATA = [
+    {
+        id: 1,
+        title: 'Item 1'
+    },
+    {
+        id: 2,
+        title: 'Item 2'
+    },
+];
+
+const Item = ({ title }) => (
+    <View style={styles.item}>
+        <Text style={styles.title}>{title}</Text>
+    </View>
+);
+
+const renderItem = ({ item }) => (
+<Item title={item.title} />
+);
+
+return (
+    <View style={styles.container}>
+        <FlatList data={DATA} renderItem={renderItem} keyExtractor={item => item.id} />
+    </View>
+);
+
+///////////////////////////////////////
+
+
+
+import React from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput } from 'react-native';
+import { useState, useEffect } from 'react';
+
+export default function GradeCalculator({route, navigation}) {
+    const [cap, setCap] = useState(0);
+    function calculate(...mods) {
+        const count = mods.length;
+        var res = 0;
+        for (var i=0; i<count; i++) {
+            res = res + parseFloat(mods[i]);
+        }
+        res = res / count;
+        setCap(res);
+    }
+
+
+    if (cap > 5) {
+        setCap("Invalid");
+    }
+
+
+    const [value1, onChangeText1] = useState(null);
+    const [value2, onChangeText2] = useState(null);
+    const [value3, onChangeText3] = useState(null);
+    const [value4, onChangeText4] = useState(null);
+    const [value5, onChangeText5] = useState(null);
+
+    const key = route.params.value;
+
+    return (
+        <View style={styles.MainContainer}>
+            <View style={styles.ResultWindow}>
+                <Text style={styles.Result}>     {cap}    </Text>
+            </View>
+
+            <TextInput style={styles.textInput}
+                       placeholder='  Module 1 grade'
+                       onChangeText={text => onChangeText1(text)}
+                       value={value1}
+                       keyboardType={'numeric'}
+            />
+            <TextInput style={styles.textInput}
+                       placeholder='  Module 2 grade'
+                       onChangeText={text => onChangeText2(text)}
+                       value={value2}
+            />
+            <TextInput style={styles.textInput}
+                       placeholder='  Module 3 grade'
+                       onChangeText={text => onChangeText3(text)}
+                       value={value3}
+            />
+            <TextInput style={styles.textInput}
+                       placeholder='  Module 4 grade'
+                       onChangeText={text => onChangeText4(text)}
+                       value={value4}
+            />
+            <TextInput style={styles.textInput}
+                       placeholder='  Module 5 grade'
+                       onChangeText={text => onChangeText5(text)}
+                       value={value5}
+            />
+            <TouchableOpacity style={styles.calculate} onPress={()=> calculate(value1, value2, value3, value4, value5)}>
+                <Text> calculate </Text>
+            </TouchableOpacity>
+        </View>
+    );
+}
+
+const styles = StyleSheet.create({
+    MainContainer: {
+        flex: 1,
+        alignItems: 'center',
+        backgroundColor: 'lightskyblue',
+    },
+    ResultWindow: {
+        padding: 30,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'royalblue',
+        borderRadius: 20,
+        borderColor: 'white',
+        borderWidth: 2,
+        top: 100
+    },
+    Result: {
+        fontSize: 30,
+        color: 'white',
+    },
+    textInput: {
+        height: 40,
+        width: 200,
+        borderColor: 'gray',
+        borderWidth: 1,
+        backgroundColor: 'white',
+        top: 120,
+        marginBottom: 10
+    },
+    calculate: {
+        padding: 30,
+        backgroundColor: 'pink',
+        borderRadius: 20,
+        top: 150
+    }
+})

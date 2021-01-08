@@ -1,19 +1,22 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import { useState, useEffect } from 'react';
 import Moment from 'moment';
-import cal from './assets/baseline_calculate_white_18dp.png';
-import gr from './assets/baseline_book_white_18dp.png';
+import cal from './assets/baseline_calculate_black_18dp.png';
+import gr from './assets/baseline_school_black_18dp.png';
+import background from './assets/HomeScreen.png';
 
 
 
-export default function HomeScreen() {
+export default function HomeScreen({navigation}) {
 
-    var num = Moment().format('H:mm:ss');
-    var date = Moment().format('dd MMM uuuu');
+    var num = Moment().format('H:mm');
+    var date = Moment().format('dd MMM - dddd');
+    var apm = Moment().format('a');
 
     const [time, setTime] = useState(num);
     const [getDate, setDate] = useState(date);
+    const [getApm, setApm] = useState(apm);
 
     useEffect(() => {
         var timerID = setInterval( () => tick(), 1000 );
@@ -24,25 +27,33 @@ export default function HomeScreen() {
     });
 
     function tick() {
-        setDate(Moment().format('D MMM yyyy'));
-        setTime(Moment().format('h:mm:ss a'));
+        setDate(Moment().format('D MMM - dddd'));
+        setTime(Moment().format('h:mm'));
+        setApm(Moment().format('a'));
     }
 
     return (
-        <View style={styles.container}>
+        <ImageBackground source={background} style={styles.container}>
             <View style={styles.clockBox}>
                 <Text style={styles.date}> {getDate} </Text>
-                <Text style={styles.clock}> {time} </Text>
+                <View style={{flexDirection: 'row'}}>
+                    <Text style={styles.clock}> {time} </Text>
+                    <Text style={styles.apm}> {getApm} </Text>
+                </View>
             </View>
+
             <View style={styles.calculatorView}>
-            <TouchableOpacity style={styles.calculator} onPress={()=> alert("calculator pressed!")}>
-                <Image source={cal} style={styles.cal} />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.grade} onPress={()=> alert("grades pressed!")}>
-                <Image source={gr} style={styles.gr} />
-            </TouchableOpacity>
+
+                <TouchableOpacity style={styles.grade} onPress={()=> navigation.navigate('Modules')}>
+                    <Image source={gr} style={styles.gr} />
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.calculator} onPress={()=> navigation.navigate('Filler1')}>
+                    <Image source={cal} style={styles.cal} />
+                </TouchableOpacity>
+
             </View>
-        </View>
+        </ImageBackground>
     );
 }
 
@@ -52,41 +63,51 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center', // left right
         //justifyContent: 'center', // up down
-        top: 150,
+        backgroundColor: 'cornflowerblue'
     },
     clock: {
-        color: 'white',
-        fontSize: 30,
-        fontStyle: 'italic',
+        color: 'black',
+        fontSize: 96,
+    },
+    apm: {
+        fontSize:36,
+        color: 'black',
+        top: 64
     },
     date: {
-        color: 'white',
+        color: 'black',
         fontSize: 30,
         fontStyle: 'italic',
     },
     clockBox: {
-        backgroundColor: 'grey',
-        padding: 50,
+        backgroundColor: 'rgba(255, 255, 255, 0.6)',
+        padding: 30,
         borderRadius: 20,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        top: 100
     },
     calculator: {
+        flex: 1,
         height: 80,
         width: 80,
-        backgroundColor: 'darkblue',
+        backgroundColor: 'rgba(255, 255, 255, 0.6)',
         borderRadius: 20,
-        marginRight: 70
+        marginLeft: 55,
+        marginRight: 55
     },
     cal: {
         height: 80,
         width: 80
     },
     grade: {
+        flex: 1,
         height: 80,
         width: 80,
-        backgroundColor: 'darkblue',
-        borderRadius: 20
+        backgroundColor: 'rgba(255, 255, 255, 0.6)',
+        borderRadius: 20,
+        marginLeft: 55,
+        marginRight: 55
     },
     gr: {
         height: 80,
@@ -94,6 +115,7 @@ const styles = StyleSheet.create({
     },
     calculatorView: {
         flexDirection: 'row',
-        top: 180,
+        top: 300,
+        justifyContent: 'space-around',
     }
 })
