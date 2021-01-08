@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, FlatList, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, FlatList, KeyboardAvoidingView, ImageBackground } from 'react-native';
 import { useState, useEffect } from 'react';
+import background from './assets/CAPCalculatorScreen.png';
 
 export default function GradeCalculator({route, navigation}) {
     const [cap, setCap] = useState(0);
@@ -38,16 +39,16 @@ export default function GradeCalculator({route, navigation}) {
     }
 
     return (
-        <View style={styles.MainContainer}>
+        <ImageBackground source={background} style={styles.MainContainer}>
 
             <View style={styles.ResultWindow}>
-                <Text style={styles.Result}>     {cap}    </Text>
+                <Text style={styles.Result}>CAP: {cap}</Text>
             </View>
 
             <View style={styles.flatList}>
             <FlatList
                 ListHeaderComponent={() =>
-                    <Text style={{padding: 8, marginBottom: 10}}>Grades</Text>
+                    <Text style={{padding: 8, marginBottom: 10}}>Modular Grades</Text>
                 }
                 contentContainerStyle={{alignItems: 'center'}}
                 data={DATA}
@@ -68,7 +69,7 @@ export default function GradeCalculator({route, navigation}) {
 
                 <FlatList
                     ListHeaderComponent={() =>
-                        <Text style={{padding: 8, marginBottom: 10}}>MCs</Text>
+                        <Text style={{padding: 8, marginBottom: 10}}>Modular Credits</Text>
                     }
                     contentContainerStyle={{alignItems: 'center'}}
                     data={DATA}
@@ -92,11 +93,11 @@ export default function GradeCalculator({route, navigation}) {
 
             <View style={styles.button}>
                 <TouchableOpacity onPress={()=> calculate(state.textInputs, mc.MCs)}>
-                    <Text style={styles.Cal}> Calculate </Text>
+                    <Text style={styles.Cal}> What's my CAP? </Text>
                 </TouchableOpacity>
             </View>
 
-        </View>
+        </ImageBackground>
     );
 }
 
@@ -107,7 +108,6 @@ const styles = StyleSheet.create({
     MainContainer: {
         flex: 1,
         alignItems: 'center',
-        backgroundColor: 'lightskyblue',
     },
     ResultWindow: {
         flex: 1,
@@ -116,10 +116,10 @@ const styles = StyleSheet.create({
     Result: {
         padding: 30,
         fontSize: 30,
-        color: 'white',
-        backgroundColor: 'royalblue',
+        color: 'black',
+        backgroundColor: 'rgba(255, 255, 255, 0.5)',
         borderRadius: 20,
-        borderColor: 'white',
+        borderColor: 'royalblue',
         borderWidth: 2,
     },
     flatList: {
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
         borderRadius: 20
     },
     Cal: {
-        backgroundColor: 'pink',
+        backgroundColor: 'rgba(121, 148, 191, 0.5)',
         borderRadius: 20,
         borderWidth: 2,
         borderColor: 'grey',
