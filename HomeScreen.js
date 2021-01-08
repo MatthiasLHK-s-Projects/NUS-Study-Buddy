@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center', // left right
         //justifyContent: 'center', // up down
-        top: 150,
+        backgroundColor: 'cornflowerblue'
     },
     clock: {
         color: 'white',
@@ -69,7 +69,8 @@ const styles = StyleSheet.create({
         padding: 50,
         borderRadius: 20,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        top: 100
     },
     calculator: {
         height: 80,
@@ -94,6 +95,6 @@ const styles = StyleSheet.create({
     },
     calculatorView: {
         flexDirection: 'row',
-        top: 180,
+        top: 300,
     }
 })
