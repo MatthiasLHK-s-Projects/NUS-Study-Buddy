@@ -5,6 +5,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import HomeScreen from './HomeScreen.js';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import GradeCalculator from './GradeCalculator.js';
 
 export default function App() {
 
@@ -12,6 +13,7 @@ export default function App() {
     return (
         <NavigationContainer>
             <Stack.Navigator>
+
                 <Stack.Screen name="Home" component={HomeScreen} options={
                     {
                         title: 'HomeScreen',
@@ -20,6 +22,16 @@ export default function App() {
                         },
                     }
                 }/>
+
+                <Stack.Screen name="GradeCal" component={GradeCalculator} options={
+                    {
+                        title: 'GradeCalculator',
+                        headerStyle: {
+                            backgroundColor: 'white',
+                        },
+                    }
+                }/>
+
             </Stack.Navigator>
         </NavigationContainer>
     );

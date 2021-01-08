@@ -7,7 +7,7 @@ import gr from './assets/baseline_book_white_18dp.png';
 
 
 
-export default function HomeScreen() {
+export default function HomeScreen({navigation}) {
 
     var num = Moment().format('H:mm:ss');
     var date = Moment().format('dd MMM uuuu');
@@ -35,7 +35,7 @@ export default function HomeScreen() {
                 <Text style={styles.clock}> {time} </Text>
             </View>
             <View style={styles.calculatorView}>
-            <TouchableOpacity style={styles.calculator} onPress={()=> alert("calculator pressed!")}>
+            <TouchableOpacity style={styles.calculator} onPress={()=> navigation.navigate('GradeCal')}>
                 <Image source={cal} style={styles.cal} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.grade} onPress={()=> alert("grades pressed!")}>
