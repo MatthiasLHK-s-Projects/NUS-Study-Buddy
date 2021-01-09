@@ -6,8 +6,10 @@ import HomeScreen from './HomeScreen.js';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import GradeCalculator from './GradeCalculator.js';
-import Modules from './modules/ModuleScreen.js'
+import Modules from './ModuleScreen.js'
 import Filler1 from './FillerPage_1.js';
+import Filler2 from './FillerPage_2.js';
+
 
 export default function App() {
 
@@ -45,7 +47,16 @@ export default function App() {
 
                 <Stack.Screen name="Filler1" component={Filler1} options={
                     {
-                        title: 'Filler1',
+                        title: 'Enter no. of modules',
+                        headerStyle: {
+                            backgroundColor: 'white',
+                        },
+                    }
+                }/>
+
+                <Stack.Screen name="Filler2" component={Filler2} options={
+                    {
+                        title: 'Enter no. of modules',
                         headerStyle: {
                             backgroundColor: 'white',
                         },

@@ -44,7 +44,7 @@ export default function HomeScreen({navigation}) {
 
             <View style={styles.calculatorView}>
 
-                <TouchableOpacity style={styles.grade} onPress={()=> navigation.navigate('Modules')}>
+                <TouchableOpacity style={styles.grade} onPress={()=> navigation.navigate('Filler2')}>
                     <Image source={gr} style={styles.gr} />
                 </TouchableOpacity>
 
