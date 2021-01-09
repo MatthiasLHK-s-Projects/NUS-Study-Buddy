@@ -46,13 +46,23 @@ export default function ModuleScreen({route, navigation}) {
                       keyExtractor={item=>item.id} />
               </View>
               <View style={styles.button}>
+
               <TouchableOpacity style={styles.submit}>
                 <Text> Save </Text>
               </TouchableOpacity>
+
+              <TouchableOpacity style={styles.submit} onPress={()=> clearButton()}>
+                <Text> Clear </Text>
+              </TouchableOpacity>
+
               </View>
           </View>
         </ImageBackground>
     );
+}
+
+function clearButton(){
+
 }
 
 const styles = StyleSheet.create({

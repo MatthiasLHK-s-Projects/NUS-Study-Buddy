@@ -1,10 +1,42 @@
 import React from 'react';
 import { TouchableOpacity, Text, View, StyleSheet, FlatList, TextInput, ImageBackground } from 'react-native';
 import { useState } from 'react';
-import background from './assets/Filler_1.png'
+import background from './assets/Filler_1.png';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default function FillerPage_2({navigation}) {
     const [value, setValue] = useState(0);
+    // const [needToRender, setAns] = useState(true);
+    //
+    async function buttonPress() {
+        try {
+          await AsyncStorage.setItem('value', value);
+          // await AsyncStorage.setItem('@filler2', 'false');
+          // setAns(false);
+          alert('Data successfully saved');
+        } catch (e) {
+          alert('Failed to save the data to the storage');
+        }
+        navigation.navigate('Modules', {value})
+    }
+    //
+    // if (needToRender == false) {
+    //     navigation.navigate('Modules', {value})
+    // }
+    //
+    // async function getData() {
+    //     try{
+    //         const temp = await AsyncStorage.getItem('@filler2');
+    //         if (temp != null && temp=='false') {
+    //             setAns(temp);
+    //         } else {
+    //             alert('error');
+    //         }
+    //     } catch(e) {
+    //         alert('failed');
+    //     }
+    // }
+
     return(
         <ImageBackground source={background} style={styles.container}>
             <TextInput
@@ -14,7 +46,7 @@ export default function FillerPage_2({navigation}) {
                 value={value}
                 style={styles.textInput}
             />
-            <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('Modules', {value})}>
+            <TouchableOpacity style={styles.button} onPress={()=>buttonPress()}>
                 <Text style={styles.text}> Next </Text>
             </TouchableOpacity>
         </ImageBackground>
